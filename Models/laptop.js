@@ -3,6 +3,7 @@ const { ObjectId } = mongoose.Schema;
 
 const laptopSchema = new mongoose.Schema(
   {
+    product: { type: String },
     title: {
       type: String,
       trim: true,

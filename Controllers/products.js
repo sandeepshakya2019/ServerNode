@@ -120,6 +120,24 @@ exports.read = async (req, res) => {
   res.json(product);
 };
 
+exports.readv = async (req, res) => {
+  // console.log(req.params);
+  product = res.body.product;
+
+  if (product === "mobile") {
+    const product = await Mobile.findOne({ slug: req.params.slug }).exec();
+    res.json(product);
+  } else if (product === "laptop") {
+    const product = await Laptop.findOne({ slug: req.params.slug }).exec();
+    res.json(product);
+  } else if (product === "tv") {
+    const product = await Tv.findOne({ slug: req.params.slug }).exec();
+    res.json(product);
+  }
+
+  // console.log(product);
+};
+
 exports.update = async (req, res) => {
   try {
     // req.body.slug = slugify(req.body.title);

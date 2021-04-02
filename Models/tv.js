@@ -3,6 +3,8 @@ const { ObjectId } = mongoose.Schema;
 
 const tvSchema = new mongoose.Schema(
   {
+    product: { type: String },
+
     title: {
       type: String,
       trim: true,

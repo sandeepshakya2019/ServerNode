@@ -11,6 +11,7 @@ const {
   listAllLaptop,
   listAllTv,
   list,
+  readv,
   productsCount,
   read,
   remove,
@@ -28,6 +29,8 @@ router.get("/productslaptop/:count", listAllLaptop);
 router.get("/productstv/:count", listAllTv);
 
 router.get("/productget/:slug", read);
+router.get("/productgetv/:slug", readv);
+
 router.post("/products", list);
 
 router.put("/products/:slug", update);
