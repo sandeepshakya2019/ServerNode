@@ -1,4 +1,8 @@
+const Tv = require("../Models/tv");
+const Mobile = require("../Models/mobile");
+const Laptop = require("../Models/laptop");
 const Product = require("../Models/product");
+
 const slugify = require("slugify");
 
 exports.create = async (req, res) => {
@@ -14,9 +18,67 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.createPro = async (req, res) => {
+  try {
+    // console.log(req.body);
+    req.body.slug = slugify(req.body.title);
+
+    if (req.body.product === "laptop") {
+      const newProduct = await new Laptop(req.body).save();
+      res.json(newProduct);
+    } else if (req.body.product === "tv") {
+      const newProduct = await new Tv(req.body).save();
+      res.json(newProduct);
+    } else if (req.body.product === "mobile") {
+      const newProduct = await new Mobile(req.body).save();
+      res.json(newProduct);
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).json({ err: err.message });
+    // res.status(400).send("Create Product Failed");
+  }
+};
+
 exports.listAll = async (req, res) => {
   try {
     const product = await Product.find({})
+      .limit(Number(req.params.count))
+      .sort([["createdAt", "desc"]])
+      .exec();
+    res.json(product);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("List Product Failed");
+  }
+};
+exports.listAllLaptop = async (req, res) => {
+  try {
+    const product = await Laptop.find({})
+      .limit(Number(req.params.count))
+      .sort([["createdAt", "desc"]])
+      .exec();
+    res.json(product);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("List Product Failed");
+  }
+};
+exports.listAllMobile = async (req, res) => {
+  try {
+    const product = await Mobile.find({})
+      .limit(Number(req.params.count))
+      .sort([["createdAt", "desc"]])
+      .exec();
+    res.json(product);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("List Product Failed");
+  }
+};
+exports.listAllTv = async (req, res) => {
+  try {
+    const product = await Tv.find({})
       .limit(Number(req.params.count))
       .sort([["createdAt", "desc"]])
       .exec();
