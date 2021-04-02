@@ -19,7 +19,7 @@ router.post("/product", create);
 router.get("/products/:count", listAll);
 router.get("/productget/:slug", read);
 router.post("/products", list);
-router.put("/products", update);
+router.put("/products/:slug", update);
 
 router.delete("/product/:slug", remove);
 

@@ -61,11 +61,12 @@ exports.read = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     // req.body.slug = slugify(req.body.title);
+    // console.log(req.body);
+    // console.log(req.params);
     let newSlug = slugify(req.body.title);
-    console.log(newSlug);
-    console.log(req.body);
+    // console.log("New" + newSlug);
     const makeUpdate = await Product.findOneAndUpdate(
-      { slug: req.body.slug },
+      { slug: req.params.slug },
       {
         title: req.body.title,
         description: req.body.description,
