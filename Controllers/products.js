@@ -58,6 +58,35 @@ exports.read = async (req, res) => {
   res.json(product);
 };
 
+exports.update = async (req, res) => {
+  try {
+    // req.body.slug = slugify(req.body.title);
+    let newSlug = slugify(req.body.title);
+    console.log(newSlug);
+    console.log(req.body);
+    const makeUpdate = await Product.findOneAndUpdate(
+      { slug: req.body.slug },
+      {
+        title: req.body.title,
+        description: req.body.description,
+        slug: newSlug,
+        price: req.body.price,
+        quantity: req.body.quantity,
+        color: req.body.color,
+        screensize: req.body.screensize,
+        operatingsystem: req.body.operatingsystem,
+        quality: req.body.quality,
+        framerate: req.body.framerate,
+      },
+      { new: true }
+    ).exec();
+    res.json(makeUpdate);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("Update Failed");
+  }
+};
+
 exports.remove = async (req, res) => {
   console.log(req.params.slug);
   try {
